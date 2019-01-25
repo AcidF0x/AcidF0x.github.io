@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>AcidF0x&#39;s Nest</title>
+    <link>https://acidf0x.github.io/</link>
+    <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>AcidF0x&#39;s Dev Blog</description>
+    <pubDate>Fri, 25 Jan 2019 06:01:28 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>lodash - throttle vs debounce</title>
+      <link>https://acidf0x.github.io/2019/01/24/Lodash-throttle-vs-debounce/</link>
+      <guid>https://acidf0x.github.io/2019/01/24/Lodash-throttle-vs-debounce/</guid>
+      <pubDate>Thu, 24 Jan 2019 06:55:41 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;/images/lodash.png&quot; alt=&quot;lodash&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;들어가기-전에&quot;&gt;&lt;a href=&quot;#들어가기-전에&quot; class=&quot;headerlink&quot; title=&quot;들어가기 전에&quot;&gt;&lt;/a&gt;들어가기 전에&lt;/h1&gt;&lt;p
+        
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p><img src="/images/lodash.png" alt="lodash"></p><h1 id="들어가기-전에"><a href="#들어가기-전에" class="headerlink" title="들어가기 전에"></a>들어가기 전에</h1><p>자바스크립트를 특성상 이벤트는 연속적으로 발생한다. (eg. <code>scroll</code>, <code>resize</code>, <code>keydown</code>) 기본적으로 이 이벤트들의 발생량을 제어 할 수 없으며 심지어 엄청나게 많이 발생하는 경우도 있다.<br>(<code>window</code>에 <code>onresize</code>이벤트의 리스너에 <code>console.log()</code>를 걸고 화면을 줄였다 늘였다 해보자.)<br>만약 작업이 느리거나 무거운 경우 과도한 이벤트로인해 퍼포먼스가 심각하게 떨어지는것은 당연한 일이다, 따라서 많은 이벤트가 발생하더라도 퍼포먼스에 문제가 없도록 제어할 수있는 <code>Throttle</code>과 <code>Debounce</code>의 차이에 대하여 간략하게 정리해보고자 한다.</p><h1 id="Throttle"><a href="#Throttle" class="headerlink" title="Throttle"></a>Throttle</h1><p><code>Throttle</code>은 특정시간마다 이벤트 발생량을 일정하게 제어 할수 있는 기능이다.<br>만약 개발중인 사이트에서 스크롤을 올리거나 내릴때 혹은 뷰포트 사이즈가 변경 될 때마다 무겁거나 복잡한 작업을 한다면 이벤트의 발생량이 많기 때문에 퍼포먼스의 문제가 발생할 요지가 있다, 그럴 경우 <code>Throttle</code>을 사용하여 특정시간마다 한번씩 이벤트를 발생 하게 할 수 있다. </p><p>아래 코드펜의 예제를 통해 쉽게 이해 할 수 있다. 이벤트가 1초마다 발생하고 2초 단위로 throttle을 설정 했을때를 가정하고 만들었다.<br><iframe id="cp_embed_bzNjEz" src="//codepen.io/anon/embed/bzNjEz?height=600&theme-id=dark&slug-hash=bzNjEz&default-tab=result&embed-version=2" scrolling="no" frameborder="no" height="600" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p><p>추가적으로 <code>Throttle</code>의 옵션인 <code>leading</code>과 <code>trailing</code>에 대해서도 쉽게 이해 할 수 있다.<br><code>lodash</code>의 경우 <code>leading</code>과 <code>trailing</code>의 기본값이 <code>true</code>이므로 원하는 옵션을 제어하자 </p><h1 id="Debounce"><a href="#Debounce" class="headerlink" title="Debounce"></a>Debounce</h1><p><code>Debounce</code>는 연속되는 이벤트가 더 이상 발생하지 않을경우 때 액션을 실행 하고자 할때 유용하다.<br>가장 익숙한 예로는 보통 회원 가입시 이메일의 중복 확인이나 검색 필드의 자동완성의 경우다, <code>input</code>의 <code>change</code> 이벤트가 발생 할때마다 매번 <code>Ajax Call</code>이 실행 되는 경우<br>불 필요한 통신과 BackEnd의 자원까지 낭비시키게 될 것이다. 이 경우 <code>Debounce</code>가 유용할 것이다.</p><iframe id="cp_embed_MLwLgV" src="//codepen.io/anon/embed/MLwLgV?height=300&theme-id=dark&slug-hash=MLwLgV&default-tab=result&embed-version=2" scrolling="no" frameborder="no" height="300" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe><h1 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h1><p><code>Throttle</code> <strong>특정시간마다 이벤트 발생량을 일정하게 제어해야 하는 경우 (eg. Scroll Event, Viewport Size Event)</strong><br><code>Debounce</code> <strong>연속적인 이벤트가 발생후 마지막 이벤트로 부터 특정시간 이후 작업을 실행하는 경우 (eg. Ajax Call)</strong></p><iframe id="cp_embed_RvNxQN" src="//codepen.io/anon/embed/RvNxQN?height=500&theme-id=dark&slug-hash=RvNxQN&default-tab=result&embed-version=2" scrolling="no" frameborder="no" height="500" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>]]></content:encoded>
+      
+      <comments>https://acidf0x.github.io/2019/01/24/Lodash-throttle-vs-debounce/#disqus_thread</comments>
+    </item>
+    
+  </channel>
+</rss>

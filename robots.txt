@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://acidf0x.github.io/sitemap.xml
